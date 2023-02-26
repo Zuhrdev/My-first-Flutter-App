@@ -35,8 +35,28 @@ class HomePage extends StatelessWidget {
           height: size.height,
           width: size.width,
           color: Colors.white,
-          alignment: Alignment.center,
-          child: Container(color: Colors.black, height: 100, width: 100)),
+          alignment: Alignment.topLeft,
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Container(
+                height: size.height/4,
+                width: size.width,
+                decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("images/cover.jpg"),),
+              ),),
+              Padding(padding: EdgeInsets.only(top: 150), child: UnderAvatar(radius: 45),),
+              Padding(padding: EdgeInsets.only(top: 155), child: ProfileAvtar(radius: 40),),
+            ],
+          //Container(
+           // height: size.height/4,
+            //width: size.width,
+            //decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("images/cover.jpg"),fit: BoxFit.cover)),
+            //child: ProfileAvtar(radius: 40),
+          ),
+
+          //Image.asset("images/cover.jpg", height: 200, width: size.width, fit: BoxFit.cover),
+      ),
+
       //child: fromAsset(height: 200, width: size.width, path: "images/cover.jpg"),
       //),
     );
@@ -46,7 +66,14 @@ class HomePage extends StatelessWidget {
 CircleAvatar ProfileAvtar({required double radius}) {
   return CircleAvatar(
     radius: radius,
-    foregroundImage: AssetImage("images/profile.jpeg"),
+    foregroundImage: AssetImage("images/profilepicture.jpg"),
+  );
+}
+
+CircleAvatar UnderAvatar({required double radius}) {
+  return CircleAvatar(
+    radius: radius,
+    foregroundColor: Colors.white,
   );
 }
 
