@@ -32,16 +32,14 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        height: size.height,
-        width: size.width,
-        color: Colors.white,
-        child: Card(
-
-         )
-          ),
-          //child: fromAsset(height: 200, width: size.width, path: "images/cover.jpg"),
-        //),
-      );
+          height: size.height,
+          width: size.width,
+          color: Colors.white,
+          alignment: Alignment.center,
+          child: Container(color: Colors.black, height: 100, width: 100)),
+      //child: fromAsset(height: 200, width: size.width, path: "images/cover.jpg"),
+      //),
+    );
   }
 }
 
@@ -52,7 +50,8 @@ CircleAvatar ProfileAvtar({required double radius}) {
   );
 }
 
-Image fromAsset({required double height, required double width, required String path}) {
+Image fromAsset(
+    {required double height, required double width, required String path}) {
   return Image.asset(
     path,
     height: height,
@@ -61,10 +60,9 @@ Image fromAsset({required double height, required double width, required String 
 }
 
 Image fromNetwork() {
-  return Image.network(""
-      "https://images.pexels.com/photos/11280353/pexels-photo-11280353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  return Image.network(
+    ""
+    "https://images.pexels.com/photos/11280353/pexels-photo-11280353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     height: 200,
   );
 }
-
-
