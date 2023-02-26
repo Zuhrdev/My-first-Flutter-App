@@ -34,11 +34,37 @@ class HomePage extends StatelessWidget {
       body: Container(
         height: size.height,
         width: size.width,
-        color: Colors.black,
-      ),
-    );
+        color: Colors.white,
+        child: Card(
+
+         )
+          ),
+          //child: fromAsset(height: 200, width: size.width, path: "images/cover.jpg"),
+        //),
+      );
   }
 }
 
+CircleAvatar ProfileAvtar({required double radius}) {
+  return CircleAvatar(
+    radius: radius,
+    foregroundImage: AssetImage("images/profile.jpeg"),
+  );
+}
+
+Image fromAsset({required double height, required double width, required String path}) {
+  return Image.asset(
+    path,
+    height: height,
+    width: width,
+  );
+}
+
+Image fromNetwork() {
+  return Image.network(""
+      "https://images.pexels.com/photos/11280353/pexels-photo-11280353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    height: 200,
+  );
+}
 
 
