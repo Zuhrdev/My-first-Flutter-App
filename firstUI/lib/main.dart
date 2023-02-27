@@ -52,43 +52,114 @@ class HomePage extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   children: [
                     Card(
-                      margin: EdgeInsets.only(left: 20),
+                      margin: EdgeInsets.only(left: 10),
                       elevation: 10,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(160)),
                       child: Container(
                         height: 50,
-                        width: 275,
+                        width: size.width-100,
                         color: Colors.blue,
                         alignment: Alignment.topLeft,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 20, left: 25),
+                      padding: EdgeInsets.only(top: 15, left: 25),
                       child: Text(
-                        "modifier le profil",
+                        "Modifier le profile",
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 15,
+                            fontSize: 17,
                             fontWeight: FontWeight.w500),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 17, left: 145),
+                      padding: EdgeInsets.only(top: 14, left: 160),
                       child: Icon(
                         Icons.account_box,
                         color: Colors.white,
                       ),
-                    )
+                    ),
+                   // SizedBox(height: 50,),
+                    ],
+                )),
+                //Expanded(child: SizedBox(height: 5, width: 50,)),
+                Expanded(child: Stack(
+                  alignment: Alignment.topLeft,
+                  children: [
+                    Card(
+                      child: Container(height: 50, width: 60, color: Colors.blue,
+                        child: Padding(padding: EdgeInsets.only(top: 0 ),child: Icon(Icons.add_circle, size: 35,color: Colors.white,),),
+                    ),elevation: 10,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),),
                   ],
                 )),
-                Expanded(child: Card(child: Container(height: 50,width: size.width/5,color: Colors.black,),))
+                //Expanded(child:Card(child: Container(height: 50,width: 10,color: Colors.blue, margin: EdgeInsets.only(right: 5),),))
+                ],
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10, left: 10),
+              alignment: Alignment.topLeft,
+              child: Text("A propos de moi", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            ),
+            Divider(),
+            Row(
+              children: [
+              Icon(Icons.add_call),
+                Padding(padding: EdgeInsets.only(left: 10), child: Text("Coordonnées", style: TextStyle(fontSize: 18),),),
+            ],
+            ),
+            Row(
+              children: [
+                Icon(Icons.account_balance_rounded),
+                Padding(padding: EdgeInsets.only(left: 10), child: Text("Lieu d'étude", style: TextStyle(fontSize: 18),),),
               ],
             ),
+            Row(
+              children: [
+                Icon(Icons.abc),
+                Padding(padding: EdgeInsets.only(left: 10), child: Text("Langue maîtrisées", style: TextStyle(fontSize: 18),),),
+              ],
+            ),
+            Divider(),
+            Container(
+              margin: EdgeInsets.only(left: 10),
+              alignment: Alignment.topLeft,
+              child: Text("Amis", style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),),
+            ),
+            Row(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      height: 150,
+                      width: size.width/4,
+                      child: Card(
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: Image.asset("images/cover.jpg"),
+                        ),
+                        //child: fromAsset(width: 100, height: 150, path: "images/cover.jpg"),
+                        //elevation: 10,
+                        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      ),
+                      ),
+                  ],
+                )
+
+              ],
+            )
+
+
+
+
+
           ],
-        ),
+    ),
       ),
       //),
     );
-  }
+    }
 }
 
 CircleAvatar ProfileAvtar({required double radius}) {
