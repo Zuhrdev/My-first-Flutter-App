@@ -112,15 +112,16 @@ class HomePage extends StatelessWidget {
             ),
             Row(
               children: [
-                friendsList("Forest", "images/cover.jpg", size.width/4),
-                Padding(padding: EdgeInsets.only(left: 10),
-                  child: friendsList("Gerard", "images/cover.jpg", size.width/4),)
+                Padding(padding: EdgeInsets.only(left: 25),
+                  child:                 friendsList("Forest", "images/warrior.jpg", size.width/4),),
+                Padding(padding: EdgeInsets.only(left: 25),
+                  child: friendsList("Gerard", "images/wolf.jpg", size.width/4),),
+                Padding(padding: EdgeInsets.only(left: 25),
+                  child: friendsList("Gerard", "images/wolf.jpg", size.width/4),)
             ]),
-            Container(
-              height: 200,
-              width: size.width,
-              color: Colors.black,
-            )
+            postUser(width: size.width, username: "username"),
+            postUser(width: size.width, username: "username"),
+
 
           ],
     ),
@@ -128,6 +129,55 @@ class HomePage extends StatelessWidget {
       //),
     );
     }
+}
+
+Container postUser({required width, required String username, }) {
+return Container(
+          margin: EdgeInsets.all(5),
+          alignment: Alignment.topLeft,
+          height: 200,
+          width: width,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),
+            color: Colors.white,border: Border.all(color: Colors.black)),
+          child: Column( children: [
+            Row(
+              children: [
+                Stack(
+                  alignment: Alignment.topLeft,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.black),),
+                      height: 50,
+                      width: 200,
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 27, left: 30),
+                      child: Text(username, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),),
+                    Padding(padding: EdgeInsets.only(top: 10, left: 290),
+                      child: Container(
+                        height: 50,
+                        width: 100,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.black),),
+                        child: Padding(padding: EdgeInsets.only(top: 15, left: 20),
+                          child: Text("Days ago" ,style: TextStyle(fontWeight: FontWeight.bold),),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+
+
+              ],
+            ),
+            imagePost("images/cover.jpg", 380, 118),
+            //buttonContainer(text: "je suis la"),
+          ],)
+
+,
+
+
+      );
 }
 
 CircleAvatar ProfileAvtar({required double radius}) {
@@ -162,6 +212,20 @@ Image fromAsset(
   );
 }
 
+Container buttonContainer({IconData? icon, String? text }) {
+  return Container(
+    margin: EdgeInsets.only(left: 10, right: 10),
+    padding: EdgeInsets.all(15),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      color: Colors.blue
+    ),
+    child: (icon == null)
+    ? Text(text ?? "", style: TextStyle(color: Colors.white),)
+    : Icon(icon, color: Colors.white,),
+  );
+}
+
 Column friendsList(String name, String path, double width) {
   return Column(
     children: [
@@ -175,6 +239,18 @@ Column friendsList(String name, String path, double width) {
       ),
       Text(name),
     ],
+  );
+}
+
+Container imagePost(String path, double width, double height) {
+  return Container(
+    width: width,
+    height: height,
+    decoration: BoxDecoration(
+      image: DecorationImage(image: AssetImage(path), fit: BoxFit.cover),
+      borderRadius: BorderRadius.circular(20)
+    ),
+
   );
 }
 
