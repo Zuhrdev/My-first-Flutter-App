@@ -44,8 +44,11 @@ class HomePage extends StatelessWidget {
                 width: size.width,
                 decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("images/cover.jpg"),),
               ),),
-              Padding(padding: EdgeInsets.only(top: 150), child: UnderAvatar(radius: 45),),
-              Padding(padding: EdgeInsets.only(top: 155), child: ProfileAvtar(radius: 40),),
+              Padding(padding: EdgeInsets.only(top: 150), child: UnderAvatar(radius: 50),),
+              Padding(padding: EdgeInsets.only(top: 155), child: ProfileAvtar(radius: 45),),
+              Container(
+                height: size.height,
+              )
             ],
           //Container(
            // height: size.height/4,
@@ -73,7 +76,7 @@ CircleAvatar ProfileAvtar({required double radius}) {
 CircleAvatar UnderAvatar({required double radius}) {
   return CircleAvatar(
     radius: radius,
-    foregroundColor: Colors.white,
+    backgroundColor: Colors.white,
   );
 }
 
