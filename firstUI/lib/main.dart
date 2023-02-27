@@ -101,24 +101,9 @@ class HomePage extends StatelessWidget {
               child: Text("A propos de moi", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
             ),
             Divider(),
-            Row(
-              children: [
-              Icon(Icons.add_call),
-                Padding(padding: EdgeInsets.only(left: 10), child: Text("Coordonnées", style: TextStyle(fontSize: 18),),),
-            ],
-            ),
-            Row(
-              children: [
-                Icon(Icons.account_balance_rounded),
-                Padding(padding: EdgeInsets.only(left: 10), child: Text("Lieu d'étude", style: TextStyle(fontSize: 18),),),
-              ],
-            ),
-            Row(
-              children: [
-                Icon(Icons.abc),
-                Padding(padding: EdgeInsets.only(left: 10), child: Text("Langue maîtrisées", style: TextStyle(fontSize: 18),),),
-              ],
-            ),
+            aboutMe(name: "Coordonnées", icon: Icons.add_call),
+            aboutMe(name: "Lieu d'étude", icon: Icons.account_balance_rounded),
+            aboutMe(name: "Langues maîtrisées", icon:Icons.abc),
             Divider(),
             Container(
               margin: EdgeInsets.only(left: 10),
@@ -127,32 +112,15 @@ class HomePage extends StatelessWidget {
             ),
             Row(
               children: [
-                Stack(
-                  children: [
-                    Container(
-                      height: 150,
-                      width: size.width/4,
-                      child: Card(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: Image.asset("images/cover.jpg"),
-                        ),
-                        //child: fromAsset(width: 100, height: 150, path: "images/cover.jpg"),
-                        //elevation: 10,
-                        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      ),
-                      ),
-                  ],
-                )
-
-              ],
+                friendsList("Forest", "images/cover.jpg", size.width/4),
+                Padding(padding: EdgeInsets.only(left: 10),
+                  child: friendsList("Gerard", "images/cover.jpg", size.width/4),)
+            ]),
+            Container(
+              height: 200,
+              width: size.width,
+              color: Colors.black,
             )
-
-
-
-
 
           ],
     ),
@@ -176,12 +144,37 @@ CircleAvatar UnderAvatar({required double radius}) {
   );
 }
 
+Row aboutMe({required String name, required IconData icon}) {
+  return Row(
+    children: [
+      Icon(icon),
+      Padding(padding: EdgeInsets.only(left: 10), child: Text(name, style: TextStyle(fontSize: 18),),),
+    ],
+  );
+}
+
 Image fromAsset(
     {required double height, required double width, required String path}) {
   return Image.asset(
     path,
     height: height,
     width: width,
+  );
+}
+
+Column friendsList(String name, String path, double width) {
+  return Column(
+    children: [
+      Container(
+        width: width,
+        height: width,
+        decoration: BoxDecoration(
+          image : DecorationImage(image: AssetImage(path), fit: BoxFit.cover),
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+      Text(name),
+    ],
   );
 }
 
