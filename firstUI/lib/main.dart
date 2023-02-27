@@ -31,36 +31,61 @@ class HomePage extends StatelessWidget {
         title: const Text("My Page"),
         centerTitle: true,
       ),
-      body: Container(
-          height: size.height,
-          width: size.width,
-          color: Colors.white,
-          alignment: Alignment.topLeft,
-          child: Stack(
-            alignment: Alignment.topCenter,
-            children: [
-              Container(
-                height: size.height/4,
-                width: size.width,
-                decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("images/cover.jpg"),),
-              ),),
-              Padding(padding: EdgeInsets.only(top: 150), child: UnderAvatar(radius: 50),),
-              Padding(padding: EdgeInsets.only(top: 155), child: ProfileAvtar(radius: 45),),
-              Container(
-                height: size.height,
-              )
-            ],
-          //Container(
-           // height: size.height/4,
-            //width: size.width,
-            //decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("images/cover.jpg"),fit: BoxFit.cover)),
-            //child: ProfileAvtar(radius: 40),
-          ),
-
-          //Image.asset("images/cover.jpg", height: 200, width: size.width, fit: BoxFit.cover),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Image.asset("images/cover.jpg",  height: 200, width: size.width, fit: BoxFit.cover,),
+                Padding(padding: EdgeInsets.only(top: 140), child: UnderAvatar(radius: 50),),
+                Padding(padding: EdgeInsets.only(top: 145), child: ProfileAvtar(radius: 45),)
+              ],
+            ),
+            Text("Pessi 5169", style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w500)),
+            Text("Un Goat n'a pas besoin de bio, mais j'aime donner\n                        de la lecture aux abrutis", style: TextStyle(color: Colors.grey, fontSize: 15),),
+            Divider(),
+            Row(
+              children: [
+                Expanded(
+                    child : Stack(
+                  alignment: Alignment.topLeft,
+                  children: [
+                    Card(
+                      margin: EdgeInsets.only(left: 20),
+                      elevation: 10,
+                      child: Container(
+                        height: 50,
+                        width: 275,
+                        color: Colors.blue,
+                        alignment: Alignment.topLeft,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, left: 25),
+                      child: Text(
+                        "modifier le profil",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 17, left: 145),
+                      child: Icon(
+                        Icons.account_box,
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
+                )),
+                Expanded(child: Card(child: Container(height: 50,width: size.width/5,color: Colors.black,),))
+              ],
+            ),
+          ],
+        ),
       ),
-
-      //child: fromAsset(height: 200, width: size.width, path: "images/cover.jpg"),
       //),
     );
   }
