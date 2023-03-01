@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'post.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +23,12 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+
+  List<Post> posts = [
+    Post(name: "Donald Trump", time: "3 jours", desc: "BLM", path: "images/blm.jpeg"),
+    Post(name: "Donald Trump", time: "5 jours", desc: "BLddddM", path: "images/blm.jpeg")
+  ];
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -47,52 +54,8 @@ class HomePage extends StatelessWidget {
             Divider(),
             Row(
               children: [
-                Expanded(
-                    child : Stack(
-                  alignment: Alignment.topLeft,
-                  children: [
-                    Card(
-                      margin: EdgeInsets.only(left: 10),
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(160)),
-                      child: Container(
-                        height: 50,
-                        width: size.width-100,
-                        color: Colors.blue,
-                        alignment: Alignment.topLeft,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 15, left: 25),
-                      child: Text(
-                        "Modifier le profile",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 14, left: 160),
-                      child: Icon(
-                        Icons.account_box,
-                        color: Colors.white,
-                      ),
-                    ),
-                   // SizedBox(height: 50,),
-                    ],
-                )),
-                //Expanded(child: SizedBox(height: 5, width: 50,)),
-                Expanded(child: Stack(
-                  alignment: Alignment.topLeft,
-                  children: [
-                    Card(
-                      child: Container(height: 50, width: 60, color: Colors.blue,
-                        child: Padding(padding: EdgeInsets.only(top: 0 ),child: Icon(Icons.add_circle, size: 35,color: Colors.white,),),
-                    ),elevation: 10,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),),
-                  ],
-                )),
-                //Expanded(child:Card(child: Container(height: 50,width: 10,color: Colors.blue, margin: EdgeInsets.only(right: 5),),))
+                Expanded(child: buttonContainer(text: "modifier le profil"),),
+                buttonContainer(icon: Icons.account_box),
                 ],
             ),
             Container(
@@ -119,9 +82,9 @@ class HomePage extends StatelessWidget {
                 Padding(padding: EdgeInsets.only(left: 25),
                   child: friendsList("Gerard", "images/wolf.jpg", size.width/4),)
             ]),
-            postUser(width: size.width, username: "username"),
-            postUser(width: size.width, username: "username"),
-
+            //posts(time: "3 days", image: "images/cover.jpg", desc: "this sound to be a fucking forest"),
+            post(post: posts[0]),
+            post(post: posts[1]),
 
           ],
     ),
@@ -131,53 +94,46 @@ class HomePage extends StatelessWidget {
     }
 }
 
-Container postUser({required width, required String username, }) {
-return Container(
-          margin: EdgeInsets.all(5),
-          alignment: Alignment.topLeft,
-          height: 200,
-          width: width,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),
-            color: Colors.white,border: Border.all(color: Colors.black)),
-          child: Column( children: [
-            Row(
-              children: [
-                Stack(
-                  alignment: Alignment.topLeft,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.black),),
-                      height: 50,
-                      width: 200,
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 27, left: 30),
-                      child: Text(username, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),),
-                    Padding(padding: EdgeInsets.only(top: 10, left: 290),
-                      child: Container(
-                        height: 50,
-                        width: 100,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.black),),
-                        child: Padding(padding: EdgeInsets.only(top: 15, left: 20),
-                          child: Text("Days ago" ,style: TextStyle(fontWeight: FontWeight.bold),),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+Container post({required Post post}) {
+  return Container(
+    margin: EdgeInsets.only(top: 8, left: 3, right: 3),
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      color: Color.fromRGBO(225, 225, 225, 1),
+    ),
+    child: Column(
+      children: [
+        Row(
+          children: [
+            ProfileAvtar(radius: 20),
+            Padding(padding: EdgeInsets.only(left: 8)),
+            Text("Pessi 6951"),
+            Spacer(),
+            postDaysAgo(post.time)
+          ],
+        ),
+        Padding(padding: EdgeInsets.only(top: 8, bottom: 8),
+        child: Image.asset(post.path, fit: BoxFit.cover),),
+        Text(post.desc, style: TextStyle(color: Colors.blueAccent),textAlign: TextAlign.center,),
+        Divider(),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Icon(Icons.favorite),
+            Text(post.setLikes()),
+            Icon(Icons.message),
+            Text(post.setComments()),
+          ],
+        )
+      ],
+    ),
+  );
+}
 
-
-              ],
-            ),
-            imagePost("images/cover.jpg", 380, 118),
-            //buttonContainer(text: "je suis la"),
-          ],)
-
-,
-
-
-      );
+Text postDaysAgo(String time) {
+  return Text("Posté il y a $time", style: TextStyle(color: Colors.blue),);
 }
 
 CircleAvatar ProfileAvtar({required double radius}) {
@@ -221,8 +177,9 @@ Container buttonContainer({IconData? icon, String? text }) {
       color: Colors.blue
     ),
     child: (icon == null)
-    ? Text(text ?? "", style: TextStyle(color: Colors.white),)
+    ? Center(child: Text(text ?? "", style: TextStyle(color: Colors.white)),)
     : Icon(icon, color: Colors.white,),
+    height: 50,
   );
 }
 
