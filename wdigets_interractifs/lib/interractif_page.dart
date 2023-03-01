@@ -19,6 +19,7 @@ class InterractifPageState extends State<InterractifPage> {
   Color backgroundIconColor = Colors.black;
   bool textButtonPressed = false;
   IconData iconData = Icons.favorite;
+  String prenom = "";
 
   @override
   void initState() {
@@ -47,29 +48,37 @@ class InterractifPageState extends State<InterractifPage> {
                 children: [
                   Icon(Icons.add),
                   textButtonText(),
-            ],
-          )
-          ),
+                ],)),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
               elevation: 10,
-              side: BorderSide(color: Colors.black),
-
-            ),
+              side: BorderSide(color: Colors.black),),
               onPressed: () {
-                print("pressed");
+              print("pressed");
               },
               child: const Text("Elevaated"),
               onLongPress: () {
                 print("long");
-              },
-          ),
+              },),
           IconButton(
               onPressed: clingIconButton,
-              icon: Icon(iconData),
+              icon: Icon(iconData,),
             color: Colors.pink,
-          )
+            splashColor: Colors.deepPurpleAccent,
+          ),
+          TextField(
+            obscureText: true, // utile pour les password
+            decoration: InputDecoration(
+                hintText: "entrez votre mot de passe",
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(30))),
+            keyboardType: TextInputType.phone,
+            onChanged: (newString) {
+            setState(() {
+              prenom = newString;
+            });},
+          ),
+          Text(prenom),
         ],
       ),),
       floatingActionButton: FloatingActionButton(
