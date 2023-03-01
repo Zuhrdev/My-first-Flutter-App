@@ -20,16 +20,20 @@ class InterractifPageState extends State<InterractifPage> {
   bool textButtonPressed = false;
   IconData iconData = Icons.favorite;
   String prenom = "";
+  late TextEditingController controller;
+  bool switchValue = true;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    controller = TextEditingController();
     // ce que l'on va faire pendant l'initialisation du widget
   }
 
   @override
   void dispose() {
+    controller.dispose();
     // TODO: implement dispose
     super.dispose();
     //tout ce que l'on va faire quand le widget sera dispose (quand le widget sera supprimé)
@@ -79,6 +83,23 @@ class InterractifPageState extends State<InterractifPage> {
             });},
           ),
           Text(prenom),
+          TextField(
+            controller: controller,
+            decoration: const InputDecoration(hintText: "entrez votre prenom"),
+            onChanged: ((newValue) =>  setState(() => print("done : $newValue"))) // print("Done : $newValue")){
+              //setState(() {
+                //controller = newValue;
+          ),
+          Text(controller.text),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(padding: EdgeInsets.only(left: 20), child:               Text((switchValue)? "Vous êtes localisés": "Votre GPS n'est pas activé"),),
+              Switch(value: switchValue, onChanged: ((bool) {setState(() { switchValue = bool ;});})),
+            ],
+          ),
+
         ],
       ),),
       floatingActionButton: FloatingActionButton(
