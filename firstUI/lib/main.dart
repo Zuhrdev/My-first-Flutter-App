@@ -1,5 +1,7 @@
+import 'package:first_ui/main_title_text.dart';
 import 'package:flutter/material.dart';
 import 'post.dart';
+import 'section_name.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,7 +51,8 @@ class HomePage extends StatelessWidget {
                 Padding(padding: EdgeInsets.only(top: 145), child: ProfileAvtar(radius: 45),)
               ],
             ),
-            Text("Pessi 5169", style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w500)),
+            MainTitleText(data: "Pessi 5169"),
+            //text pessi !!!!!!!!!!!!!!!!!!
             Text("Un Goat n'a pas besoin de bio, mais j'aime donner\n                        de la lecture aux abrutis", style: TextStyle(color: Colors.grey, fontSize: 15),),
             Divider(),
             Row(
@@ -59,11 +62,10 @@ class HomePage extends StatelessWidget {
                 ],
             ),
             Container(
-              margin: EdgeInsets.only(top: 10, left: 10),
               alignment: Alignment.topLeft,
-              child: Text("A propos de moi", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+              child: SectionName("A propos de moi"),
             ),
-            Divider(),
+            const Divider(thickness: 2,),
             aboutMe(name: "Coordonnées", icon: Icons.add_call),
             aboutMe(name: "Lieu d'étude", icon: Icons.account_balance_rounded),
             aboutMe(name: "Langues maîtrisées", icon:Icons.abc),
@@ -83,6 +85,11 @@ class HomePage extends StatelessWidget {
                   child: friendsList("Gerard", "images/wolf.jpg", size.width/4),)
             ]),
             //posts(time: "3 days", image: "images/cover.jpg", desc: "this sound to be a fucking forest"),
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              alignment: Alignment.topLeft,
+              child: SectionName("Mes Posts"),
+            ),
             post(post: posts[0]),
             post(post: posts[1]),
 
