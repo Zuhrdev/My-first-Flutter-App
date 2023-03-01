@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
 
   List<Post> posts = [
     Post(name: "Donald Trump", time: "3 jours", desc: "BLM", path: "images/blm.jpeg"),
-    Post(name: "Donald Trump", time: "5 jours", desc: "BLddddM", path: "images/blm.jpeg")
+    Post(name: "Hogwhart Legacy", time: "7 jours", desc: "Quel jeu incroyable !", path: "images/legacy.jpg")
   ];
 
   @override
@@ -71,9 +71,9 @@ class HomePage extends StatelessWidget {
             aboutMe(name: "Langues maîtrisées", icon:Icons.abc),
             Divider(),
             Container(
-              margin: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 10),
               alignment: Alignment.topLeft,
-              child: Text("Amis", style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),),
+              child: SectionName("Amis"),
             ),
             Row(
               children: [
@@ -84,19 +84,18 @@ class HomePage extends StatelessWidget {
                 Padding(padding: EdgeInsets.only(left: 25),
                   child: friendsList("Gerard", "images/wolf.jpg", size.width/4),)
             ]),
-            //posts(time: "3 days", image: "images/cover.jpg", desc: "this sound to be a fucking forest"),
             Container(
               padding: EdgeInsets.only(left: 10),
-              alignment: Alignment.topLeft,
+              alignment: Alignment.topCenter,
               child: SectionName("Mes Posts"),
             ),
+
             post(post: posts[0]),
             post(post: posts[1]),
 
           ],
     ),
       ),
-      //),
     );
     }
 }
