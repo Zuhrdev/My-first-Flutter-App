@@ -111,7 +111,6 @@ class ExerciseWidgetState extends State<ExerciseWidget> {
                       ),
                     Text(updateSecretDisplay(), style: TextStyle(fontSize: 25)),
                   ]
-//                  Text("name : $name prenom : $prenom\n", style: TextStyle(fontSize: 30),)
                   ,))
               ],
             ),
@@ -195,16 +194,6 @@ class ExerciseWidgetState extends State<ExerciseWidget> {
                     },
                   ),
                 ),
-
-                /*Row(
-                  children: [
-                    RadioListTile(value: "dart", groupValue: language, onChanged: (newValue) {
-                      setState(() {
-                        language = newValue.toString();
-                      });
-                    })
-                  ],
-                )*/
               ],
             ),
           ],
@@ -215,10 +204,6 @@ class ExerciseWidgetState extends State<ExerciseWidget> {
 
   updateSecret() {
     setState(() => textButtonPressed = !textButtonPressed);
-    /*setState(() {
-      textButtonPressed = (textButtonPressed == false) ? true : false;
-      print("pressed");
-    })*/
   }
 
   updateSecretDisplay() {
@@ -252,14 +237,12 @@ class ExerciseWidgetState extends State<ExerciseWidget> {
     List<Widget> items = [];
     hobbies.forEach((hobbie, checkOrNot) {
       if (checkOrNot == true) {
-        Widget text = Text(" $hobbie", style: TextStyle(fontSize: 25),)
-        ;
+        Widget text = Text(" $hobbie", style: TextStyle(fontSize: 25),);
         items.add(text);
       }
     });
     return Row(children: items,);
   }
-
 
 Column userInfos (TextEditingController controller, String text, bool password, String cache) {
   return Column(
@@ -272,18 +255,4 @@ Column userInfos (TextEditingController controller, String text, bool password, 
     ],
   );
 }
-  /*Column(
-    children: [
-      TextField(
-        obscureText: password,
-        controller: controller,
-        decoration: InputDecoration(hintText: text),
-        onChanged: (newString) {
-          //setState(() {
-            //prenom = newString;
-        }
-        ,)
-    ],
-  );*/
-
 }
