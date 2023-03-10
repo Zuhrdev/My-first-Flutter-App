@@ -14,6 +14,14 @@ class ProfilePageState extends State<ProfilePage> {
   late TextEditingController name;
   late TextEditingController secret;
   bool showSecret = false;
+  Map<String, bool> hobbies = {
+    "Petanque": false,
+    "Football": false,
+    "Rugby": false,
+    "code": false,
+    "Manga": false,
+    "foooooood": false,
+  };
 
 
   @override
@@ -72,12 +80,8 @@ class ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            Divider(color: Colors.deepPurpleAccent, thickness: 2,),
-            Text("Modifier les infos", style: TextStyle(
-              color: Colors.deepPurple,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),),
+            Divider(color: Colors.deepPurpleAccent, thickness: 2,), 
+          myTitle("Modifier les infos"),
             myTextField(controller: surname, hint: "Entrez votre prénom"),
             myTextField(controller: name, hint: "Entrez votre nom"),
             myTextField(controller: secret, hint: "Entrez votre secret", isSecret : true),
@@ -108,7 +112,11 @@ class ProfilePageState extends State<ProfilePage> {
                   });
                 }))
               ],
-            )
+            ),
+            Divider(color: Colors.deepPurple,thickness: 2,),
+            myHobbies(),
+            Divider(color: Colors.deepPurple, thickness: 2,),
+            myRadios(),
           ],
         ),
       ),
@@ -133,7 +141,12 @@ class ProfilePageState extends State<ProfilePage> {
       myProfile = Profile(
         surname: (surname.text != myProfile.surname) ? surname.text : myProfile.surname,
         name : (name.text != myProfile.name) ? name.text : myProfile.name,
-        secret : secret.text
+        secret : secret.text,
+        favoriteLang: myProfile.favoriteLang,
+        hobbies: myProfile.hobbies,
+        height: myProfile.height,
+        age: myProfile.age,
+        gender:myProfile.gender,
       );
     });
   }
@@ -142,6 +155,67 @@ class ProfilePageState extends State<ProfilePage> {
     setState(() {
       showSecret = !showSecret;
     });
+  }
+
+  Column myHobbies() {
+    List<Widget> widgets = [myTitle("Mes Hobbies")];
+    hobbies.forEach((hobby, like) {
+      Row r = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Text(hobby),
+          Checkbox(value: like, onChanged: (newBool) {
+            setState(() {
+              hobbies[hobby] = newBool ?? false;
+              List<String> str = [];
+              hobbies.forEach((key, value) {
+                if(value == true) {
+                  str.add(key);
+                }
+              });
+              myProfile.hobbies = str;
+            });
+          })
+        ],
+      );
+      widgets.add(r);
+    });
+    return Column(children: widgets);
+  }
+
+  Column myRadios() {
+    List<Widget> widgets = [myTitle("Mon language préféré")];
+    List<String> langs = ["Dart", "Swift", "Kotlin", "Java", "Python"];
+    int index = langs.indexWhere((lang) => lang.startsWith(myProfile.favoriteLang));
+    for (var x = 0; x < langs.length; x++) {
+      Row r = Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(langs[x]),
+          Radio(value: x, groupValue: index, onChanged: (newValue) {
+            setState(() {
+              myProfile.favoriteLang = langs[newValue as int];
+            });
+          })
+        ],
+
+      );
+      widgets.add(r);
+    }
+    return Column(
+      children: widgets,);
+  }
+  
+  Text myTitle(String text) {
+    return Text(
+      text, 
+      style: TextStyle(
+      color: Colors.deepPurple,
+      fontWeight: FontWeight.bold,
+      fontSize: 18,
+    ),);
   }
 
 
