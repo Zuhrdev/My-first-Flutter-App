@@ -22,6 +22,7 @@ class Profile {
 });
 
   String setName() => "$surname $name";
+
   String setAge() {
     String ageString = "$age an";
     if (age > 1) {
@@ -32,7 +33,7 @@ class Profile {
 
   String genderString() => (gender) ? "Féminin" : "Masculin";
 
-  String setHeight() => "$height cm";
+  String setHeight() => "${height.toInt()} cm";
 
   String setHobbies() {
     String toHobbiesString = "";

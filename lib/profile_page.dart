@@ -10,16 +10,30 @@ class ProfilePage extends StatefulWidget {
 class ProfilePageState extends State<ProfilePage> {
 
   Profile myProfile = Profile(surname: "Mathieu", name: "Codabee");
+  late TextEditingController surname;
+  late TextEditingController name;
+  late TextEditingController secret;
+  bool showSecret = false;
+
 
   @override
   void initState() {
     // TODO: implement initState
+    surname = TextEditingController();
+    name = TextEditingController();
+    secret = TextEditingController();
+    surname.text = myProfile.surname;
+    name.text = myProfile.name;
+    secret.text = myProfile.secret;
     super.initState();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
+    surname.dispose();
+    name.dispose();
+    secret.dispose();
     super.dispose();
   }
 
@@ -46,16 +60,88 @@ class ProfilePageState extends State<ProfilePage> {
                     Text("Genre : ${myProfile.genderString()}"),
                     Text("Hobbies : ${myProfile.setHobbies()}"),
                     Text("Language de programmation favori : ${myProfile.favoriteLang}"),
+                    ElevatedButton(
+                        onPressed: (() {
+                          updateSecret();
+                        }),
+                        child: Text((showSecret)? "cacher secret" : "Montrer secret"),
+                    ),
+                    (showSecret)? Text(myProfile.secret) : Container(height: 0,width: 0,),
+
                   ],
                 ),
               ),
             ),
             Divider(color: Colors.deepPurpleAccent, thickness: 2,),
-
+            Text("Modifier les infos", style: TextStyle(
+              color: Colors.deepPurple,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),),
+            myTextField(controller: surname, hint: "Entrez votre prénom"),
+            myTextField(controller: name, hint: "Entrez votre nom"),
+            myTextField(controller: secret, hint: "Entrez votre secret", isSecret : true),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment:MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Genre : ${myProfile.genderString()}"),
+                Switch(value: myProfile.gender, onChanged: ((newBool) {
+                  setState(() {
+                    myProfile.gender = newBool;
+                  });
+                }))
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Taille : ${myProfile.setHeight()}"),
+                Slider(
+                    value: myProfile.height,
+                    min: 0,
+                    max: 210,
+                    onChanged: ((newHeight) {
+                  setState(() {
+                    myProfile.height = newHeight;
+                  });
+                }))
+              ],
+            )
           ],
         ),
       ),
     );
+  }
+
+  TextField myTextField({required TextEditingController controller, required String hint, bool isSecret = false}) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: hint,
+      ),
+      obscureText: isSecret,
+      onSubmitted: ((newValue) {
+        updateUser();
+      }),
+    );
+  }
+
+  updateUser() {
+    setState(() {
+      myProfile = Profile(
+        surname: (surname.text != myProfile.surname) ? surname.text : myProfile.surname,
+        name : (name.text != myProfile.name) ? name.text : myProfile.name,
+        secret : secret.text
+      );
+    });
+  }
+
+  updateSecret() {
+    setState(() {
+      showSecret = !showSecret;
+    });
   }
 
 
