@@ -8,7 +8,7 @@ class ExerciseWidget extends StatefulWidget {
   }
 }
 
-enum Language {dart, c}
+enum Language {dart, c,}
 Language? _language = Language.dart;
 
 
