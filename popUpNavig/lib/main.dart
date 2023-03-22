@@ -51,18 +51,47 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'Montrer un snackbar',
             ),
+            Column(
+              children: [
+                Padding(padding: EdgeInsets.only(top: 100), child:
+                FloatingActionButton(
+                  onPressed: () {
+                    final snackbar = SnackBar(content: Text('Mon premier Snackbar'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                  },
+
+                  tooltip: 'Increment',
+                  child: Text("first"),
+                ),),
+                FloatingActionButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(createSnack(text: "Snack evolué"));
+                  },
+                  tooltip: 'Increment',
+                  child: Text('second'),
+                ),
+              ],
+            )
+
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final snackbar = SnackBar(content: Text('Mon premier Snackbar'));
-          ScaffoldMessenger.of(context).showSnackBar(snackbar);
 
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  SnackBar createSnack({required String text}) {
+    final content = Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Icon(Icons.house),
+        Text(text),
+      ],
+    );
+    final snack = SnackBar(content: content);
+    return snack;
+  }
+
+
 }
