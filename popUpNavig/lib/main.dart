@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-
+  Color btnColor = Colors.greenAccent;
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text("first"),
                 ),),
                 FloatingActionButton(
+                  backgroundColor: btnColor,
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(createSnack(text: "Snack evolué"));
                   },
@@ -82,14 +83,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   SnackBar createSnack({required String text}) {
     final content = Row(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Icon(Icons.house),
         Text(text),
       ],
     );
-    final snack = SnackBar(content: content);
+    final snack = SnackBar(
+        content: content,
+      action: SnackBarAction(
+        label: "changer couleur btr",
+        onPressed: () {
+          setState(() {
+            btnColor= (btnColor == Colors.greenAccent) ? Colors.redAccent : Colors.greenAccent;
+          });
+        },
+      ),
+    );
     return snack;
   }
 
