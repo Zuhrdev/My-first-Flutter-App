@@ -55,26 +55,26 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Column(
               children: [
-                Padding(padding: EdgeInsets.only(top: 50), child:
+                Padding(padding: const EdgeInsets.only(top: 50), child:
                 FloatingActionButton(
                   onPressed: () {
-                    final snackbar = SnackBar(content: Text('Mon premier Snackbar'));
+                    final snackbar = const SnackBar(content: Text('Mon premier Snackbar'));
                     ScaffoldMessenger.of(context).showSnackBar(snackbar);
                   },
 
                   tooltip: 'Increment',
-                  child: Text("first"),
+                  child: const Text("first"),
                 ),),
-                Padding(padding: EdgeInsets.only(top: 50), child:
+                Padding(padding: const EdgeInsets.only(top: 50), child:
                 FloatingActionButton(
                   backgroundColor: btnColor,
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(createSnack(text: "Snack evolué"));
                   },
                   tooltip: 'Increment',
-                  child: Text('second'),
+                  child: const Text('second'),
                 ),),
-                Padding(padding: EdgeInsets.only(top: 50), child:
+                Padding(padding: const EdgeInsets.only(top: 50), child:
                     ElevatedButton(
                       onPressed: () {
                         AlertDialog alert = AlertDialog(
@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: Text("ok"),
+                              child: const Text("ok"),
                             ),
                             TextButton(
                                 onPressed: () {
@@ -95,18 +95,31 @@ class _MyHomePageState extends State<MyHomePage> {
                                   });
 
                                 },
-                                child: Text("changer le appbar"))
+                                child: const Text("changer le appbar"))
                           ],
                         );
-                        showDialog(
-                          barrierDismissible: false, // permet de fermer l'alert en cliquant nimp ou
+                          showDialog(
+                            barrierDismissible: false, // permet de fermer l'alert en cliquant nimp ou
                             context: context,
                             builder: (BuildContext ctx) {
                               return alert;
                             });
                       },
-                      child: Text("Montrer une alerte"),
-                ),)
+                      child: const Text("Montrer une alerte"),
+                ),),
+                Padding(padding: const EdgeInsets.only(top: 50), child:
+                  ElevatedButton(
+                      onPressed: (){
+                        showMyDialog(dialog: createAlert());
+                      },
+                    child: const Text("Montrer une alerte-2"),
+                  )),
+                Padding(padding: const EdgeInsets.only(top: 50),child:
+                  ElevatedButton(
+                    onPressed: (){
+                      showMyDialog(dialog: createSimp());
+                    },
+                    child: const Text("Montrer simple"),),)
               ],
             )
 
@@ -143,6 +156,61 @@ class _MyHomePageState extends State<MyHomePage> {
       behavior: SnackBarBehavior.floating,
     );
     return snack;
+  }
+
+  AlertDialog createAlert() {
+    return AlertDialog(
+      title: const Text("Big alert title"),
+      content: const Text("big alerte crée content"),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text("ok"),
+        ),
+        TextButton(
+            onPressed: () {
+              Navigator.of(context).pop;
+              setState(() {
+                appBarColor = (appBarColor == Colors.lightBlueAccent) ? Colors.black : Colors.lightBlueAccent;
+              });
+
+            },
+            child: const Text("changer le appbar"))
+      ],
+    );
+  }
+
+  Future <void> showMyDialog({required Widget dialog}) async {
+    await showDialog(
+        barrierDismissible: false, // permet de fermer l'alert en cliquant nimp ou
+        context: context,
+        builder: (BuildContext ctx) {
+          return dialog;
+        });
+  }
+
+  SimpleDialog createSimp() {
+    final simple = SimpleDialog(
+      title: const Text("Je suis un simple dialog"),
+      elevation: 15,
+      children: [
+        const Text("Je suis comme une column"),
+        const Divider(),
+        const Text("je suis dans un pop up"),
+        option(),
+      ],
+    );
+    return simple;
+  }
+
+  SimpleDialogOption option() {
+    return SimpleDialogOption(
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
   }
 
 
